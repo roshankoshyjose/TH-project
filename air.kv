@@ -1,0 +1,83 @@
+# KV file of the AiR player app
+<base>: 
+	id: Base 
+	orientation: 'horizontal'
+	padding: 10
+	spacing: 10
+	
+    #BoxLayout:
+  
+    # Creating browser
+    FileChooserListView:
+        id: filechooser
+        dirselect: False
+        size_hint: 0.3, 1 
+        #filter_dirs : True
+        filters : [lambda folder, filename: filename.endswith('.mp3')]
+        on_selection: root.select(filechooser.selection[0])
+        
+    BoxLayout:
+        orientation: 'vertical'
+        
+        BoxLayout:
+            orientation: 'horizontal'
+            
+            # toggle buttons
+            
+            BoxLayout:
+                orientation: 'vertical'
+                
+                Button:
+                    text: "canvas"
+                    #size_hint: 0.3, 1 
+                    
+                Button:
+                    
+                    # will be a popup
+                
+                    text: "equalizer"
+                    size_hint: 1, 0.2 
+                
+            Button:
+                text: "playlist"
+                size_hint: 0.3, 1 
+            
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: 1, 0.3
+            
+            BoxLayout:
+                orientation: 'horizontal'
+            
+                Button:
+                    text : "<<"
+                    size_hint: 0.3, 1
+                
+                Button:
+                    text : "|>"
+                    on_press : root.playpause()
+                    size_hint: 0.3, 1
+                    
+                Button:
+                    text : ">>"
+                    size_hint: 0.3, 1
+            
+            BoxLayout:
+                Slider:
+                    id: slider
+                    min: 0
+                    max: 100
+                    step: 1
+                    orientation: 'horizontal'
+            
+                Label:
+                    #text: str(slider.value)
+                    text : root.seconds_string
+                    size_hint: 0.2, 1
+                        
+                        
+                        
+                    
+                        
+                    
+            
