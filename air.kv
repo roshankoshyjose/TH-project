@@ -14,22 +14,32 @@
         size_hint: 0.3, 1 
         #filter_dirs : True
         filters : [lambda folder, filename: filename.endswith('.mp3')]
+        dirselect: True
         on_selection: root.select(filechooser.selection[0])
         
     BoxLayout:
         orientation: 'vertical'
         
         BoxLayout:
+            id: PL
             orientation: 'horizontal'
+            #padding: 10
+        	spacing: 10
             
             # toggle buttons
             
             BoxLayout:
                 orientation: 'vertical'
+                #size_hint: 0.7, 1 
                 
                 Button:
                     text: "canvas"
-                    #size_hint: 0.3, 1 
+                    #size_hint: 0.7, 1 
+                    
+                Label:
+                    id : current
+                    text: "Now : "
+                    size_hint: 1,0.1
                     
                 Button:
                     
@@ -37,30 +47,79 @@
                 
                     text: "equalizer"
                     size_hint: 1, 0.2 
-                
-            Button:
-                text: "playlist"
-                size_hint: 0.3, 1 
+                    
             
+            #ScrollView:
+                #size_hint: 0.3, 1    
+                #do_scroll_x : False
+                
+            Label:
+                id : playlist
+                size_hint: 0.3, 1 
+                halign: 'left'
+                valign: 'top'
+                markup: True
+                text_size: self.width, self.height
+                    
+                text : "   <[u]     P L A Y L I S T     [/u]>\n"
+                on_ref_press: root.test(args[1])
+                
+                #text: "playlist [ref=world]World[/ref]"
+                #on_ref_press: root.test(args[1])
+                
         BoxLayout:
             orientation: 'vertical'
             size_hint: 1, 0.3
             
             BoxLayout:
                 orientation: 'horizontal'
+                padding: 10
+                spacing: 10
             
-                Button:
-                    text : "<<"
+                Label:
+                    text : "Add to Fav | Show Fav"
                     size_hint: 0.3, 1
-                
-                Button:
-                    text : "|>"
-                    on_press : root.playpause()
-                    size_hint: 0.3, 1
+                    #on_press : root.paudio()
                     
-                Button:
-                    text : ">>"
+                BoxLayout:
+                    orientation: 'horizontal'
                     size_hint: 0.3, 1
+                    padding: 1
+                
+                    Button:
+                        text : "<<"
+                        size_hint: 0.3, 1
+                        on_press : root.paudio()
+                    
+                    Button:
+                        text : "||>"
+                        on_press : root.playpause()
+                        size_hint: 0.3, 1
+                        
+                    Button:
+                        text : ">>"
+                        size_hint: 0.3, 1
+                        on_press : root.naudio()
+                            
+                BoxLayout:
+                    size_hint: 0.3, 1
+                    orientation: 'horizontal'
+
+                    Label:
+                        text: "Vol : "
+                        size_hint: 0.2, 1
+                    
+                    Slider:
+                        id: volume
+                        min: 0
+                        max: 100
+                        step: 1
+                        value: 100
+                        orientation: 'horizontal'
+                
+                    Label:
+                        text: str(int(volume.value))
+                        size_hint: 0.2, 1
             
             BoxLayout:
                 Slider:
@@ -72,7 +131,7 @@
             
                 Label:
                     #text: str(slider.value)
-                    text : root.seconds_string
+                    text : root.seconds_string # + '/' + root.songlength
                     size_hint: 0.2, 1
                         
                         
